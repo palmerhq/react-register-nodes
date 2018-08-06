@@ -1,0 +1,34 @@
+{
+  "name": "react-first-matching-node",
+  "version": "0.0.0",
+  "description": "Register DOM nodes in React and do something with the first one",
+  "main": "dist/react-first-matching-node.js",
+  "umd:main": "dist/react-first-matching-node.umd.js",
+  "module": "dist/react-first-matching-node.m.js",
+  "author": "Nathan Force <nathan.a.force@gmail.com>",
+  "license": "MIT",
+  "scripts": {
+    "test": "echo \"No tests yet you lazy bum\"",
+    "build": "microbundle --entry ./src/index.ts --external=all",
+    "dev": "microbundle watch"
+  },
+  "prettier": {
+    "semi": true,
+    "singleQuote": true,
+    "trailingComma": "es5"
+  },
+  "devDependencies": {
+    "@types/react": "^16.4.7",
+    "@types/react-dom": "^16.0.6",
+    "microbundle": "^0.4.4",
+    "prettier": "^1.13.5",
+    "react": "^16.4.2",
+    "react-dom": "^16.4.2",
+    "typescript": "^3.0.1"
+  },
+  "peerDependencies": {
+    "react": "^16.4.1",
+    "react-dom": "^16.4.1"
+  },
+  "dependencies": {}
+}

@@ -1,0 +1,10 @@
+node_modules
+dist
+build
+compiled
+*.log
+coverage
+.DS_Store
+next.d.ts
+legacy.d.ts
+.rpt2_cache
