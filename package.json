@@ -10,6 +10,7 @@
   "scripts": {
     "test": "echo \"No tests yet you lazy bum\"",
     "build": "microbundle --entry ./src/index.ts --external=all",
+    "prepublish": "build",
     "dev": "microbundle watch"
   },
   "prettier": {
