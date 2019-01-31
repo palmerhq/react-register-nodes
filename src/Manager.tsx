@@ -85,7 +85,7 @@ export class Manager extends React.Component<ManagerProps, ManagerState> {
       )!;
 
       const [, firstFieldId] = firstFieldInDom.dataset[
-        'first-matching-node-id'
+        'firstMatchingNodeId'
       ].split('.');
       const handler = this.state.targets[firstFieldId];
 
