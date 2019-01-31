@@ -1,6 +1,6 @@
 {
   "name": "react-first-matching-node",
-  "version": "0.0.5",
+  "version": "0.0.6",
   "description": "Register DOM nodes in React and do something with the first one",
   "main": "dist/react-first-matching-node.js",
   "umd:main": "dist/react-first-matching-node.umd.js",
