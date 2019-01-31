@@ -11,10 +11,10 @@ type InjectedProps = Pick<ManagerState, 'name' | 'register'>;
 export const withContext = <OriginalProps extends {}>(
   Component: React.ComponentType<OriginalProps & InjectedProps>
 ) => {
-  const HOC: React.SFC<OriginalProps> = () => (
+  const HOC: React.SFC<OriginalProps> = (props) => (
     <Context.Consumer>
       {({ register, name }) => (
-        <Component name={name} register={register} {...this.props} />
+        <Component name={name} register={register} {...props} />
       )}
     </Context.Consumer>
   );
