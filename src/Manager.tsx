@@ -11,7 +11,7 @@ type InjectedProps = Pick<ManagerState, 'name' | 'register'>;
 export const withContext = <OriginalProps extends {}>(
   Component: React.ComponentType<OriginalProps & InjectedProps>
 ) => {
-  const HOC: React.SFC<OriginalProps> = (props) => (
+  const HOC: React.SFC<OriginalProps> = props => (
     <Context.Consumer>
       {({ register, name }) => (
         <Component name={name} register={register} {...props} />
@@ -84,7 +84,9 @@ export class Manager extends React.Component<ManagerProps, ManagerState> {
         idselectors.join(',')
       )!;
 
-      const [, firstFieldId] = firstFieldInDom.dataset.Id!.split('.');
+      const [, firstFieldId] = firstFieldInDom.dataset[
+        'first-matching-node-id'
+      ].split('.');
       const handler = this.state.targets[firstFieldId];
 
       handler(firstFieldInDom);
