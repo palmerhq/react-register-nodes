@@ -8,3 +8,4 @@ coverage
 next.d.ts
 legacy.d.ts
 .rpt2_cache
+.rts2_cache*
