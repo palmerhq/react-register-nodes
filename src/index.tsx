@@ -33,8 +33,9 @@ export const NodeManager: React.FC<NodeManagerProps> = ({ children }) => {
   const unregister = React.useCallback<NodeManagerContext['unregister']>(
     key => {
       setNodes(n => {
-        delete n[key];
-        return n;
+        const { [key]: omitted, ...rest } = n;
+
+        return rest;
       });
     },
     []
@@ -49,7 +50,7 @@ export const NodeManager: React.FC<NodeManagerProps> = ({ children }) => {
         unregister,
       };
     },
-    [nodes, register, unregister]
+    [nodes, register, unregister, namespace]
   );
 
   return <Context.Provider value={context}>{children}</Context.Provider>;
@@ -113,7 +114,7 @@ export function useRegisteredRef(key: string) {
       // unregister on unmount
       return () => unregister(key);
     },
-    [ref.current]
+    [ref.current, key]
   );
 
   return ref;
