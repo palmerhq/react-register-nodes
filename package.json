@@ -1,10 +1,10 @@
 {
-  "name": "react-first-matching-node",
+  "name": "react-register-nodes",
   "version": "0.0.7",
-  "description": "Register DOM nodes in React and do something with the first one",
-  "main": "dist/react-first-matching-node.js",
-  "umd:main": "dist/react-first-matching-node.umd.js",
-  "module": "dist/react-first-matching-node.m.js",
+  "description": "Register DOM nodes in React",
+  "main": "dist/react-register-nodes.js",
+  "umd:main": "dist/react-register-nodes.umd.js",
+  "module": "dist/react-register-nodes.m.js",
   "author": "Nathan Force <nathan.a.force@gmail.com>",
   "license": "MIT",
   "scripts": {
@@ -19,13 +19,13 @@
     "trailingComma": "es5"
   },
   "devDependencies": {
-    "@types/react": "^16.4.7",
-    "@types/react-dom": "^16.0.6",
+    "@types/react": "^16.7.22",
+    "@types/react-dom": "^16.0.11",
     "microbundle": "^0.9.0",
     "prettier": "^1.13.5",
-    "react": "^16.4.2",
-    "react-dom": "^16.4.2",
-    "typescript": "^3.0.1"
+    "react": "16.8.0-alpha.1",
+    "react-dom": "16.8.0-alpha.1",
+    "typescript": "^3.3.1"
   },
   "peerDependencies": {
     "react": "^16.4.1",
