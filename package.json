@@ -1,6 +1,6 @@
 {
   "name": "react-register-nodes",
-  "version": "0.0.8",
+  "version": "0.0.9",
   "description": "Register DOM nodes in React",
   "main": "dist/react-register-nodes.js",
   "umd:main": "dist/react-register-nodes.umd.js",
