@@ -1,22 +1,19 @@
-# react-first-matching-node
+# react-register-nodes
 
-## Manager
+Register a set of refs within a context.  Helpful for UI where many siblings need to know about each other.  Shared example is scrolling to the first error in a form submission.
 
-**Props**
+## NodeManager
 
-| Prop   | Type     | Description                                                                                                                |
-| ------ | -------- | -------------------------------------------------------------------------------------------------------------------------- |
-| name   | String   | namespace for the Manager.  Targets will register themselves against this namespace.                                       |
-| active | Boolean  | When this is true, the Manager will run a check to find the first Target and fire the registered callback for that Target. |
-| ids    | String[] | Which Target IDs should be considered when checking for the first target                                                   |  |
-    
+Sets up context.  Must be above any components that call the `use*` hooks.
 
-## Target
+## useRegisteredRef
 
-**Props**
+Returns a ref that will be registered with the nearest NodeManager.
 
-| Prop     | Type     | Description                                                                                                                                                                                            |
-| -------- | -------- | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------ |
-| id       | String   | ID for the target.  Needs to be unique                                                                                                                                                                 |
-| children | Function | A function that returns a React node.  It is passed a single parameter of type TargetNodeProps, which are the props that should be spread onto your target HTML node, for example your containing div. |
-| onMatch  | Function | A function that is called when this target is the first matching node.  It is called with a reference to the DOM node that TargetNodeProps were applied to                                             |
+## useRegisteredNodes
+
+Returns all registered nodes in the order that they appear in the DOM.
+
+# Example
+
+https://codesandbox.io/s/10363x25oq
