@@ -9,7 +9,7 @@
   "license": "MIT",
   "scripts": {
     "test": "echo \"No tests yet you lazy bum\"",
-    "build": "microbundle --entry ./src/index.ts --external=all",
+    "build": "microbundle --entry ./src/index.tsx --external=all",
     "prepublish": "npm run build",
     "dev": "microbundle watch"
   },
