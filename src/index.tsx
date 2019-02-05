@@ -1,100 +1,117 @@
 import * as React from 'react';
 
-const uid = (prefix: string) =>
-  `${prefix}-${Math.random()
+const uid = () =>
+  `${Math.random()
     .toString(32)
     .substr(2, 8)}`;
 
-function usePrevious<T>(value: T) {
-  const ref = React.useRef<T | undefined>(undefined);
-  React.useEffect(() => {
-    ref.current = value;
-  });
-  return ref.current;
-}
-
 const Context = React.createContext<NodeManagerContext | null>(null);
 
+type HTMLElementMap = { [key: string]: HTMLElement };
+
 export interface NodeManagerContext {
-  matches: HTMLElement[];
-  register: (node: HTMLElement) => void;
-  unregister: (node: HTMLElement) => void;
+  nodes: HTMLElementMap;
+  register: (key: string, node: HTMLElement) => void;
+  unregister: (key: string) => void;
+  namespace: string;
 }
 
-export const NodeManager = ({ namespace, children }) => {
-  const [refs, setRefs] = React.useState<HTMLElement[]>([]);
-  const [matches, setMatches] = React.useState<HTMLElement[]>([]);
+export interface NodeManagerProps {
+  children: React.ReactNode;
+}
 
-  const register = React.useCallback<NodeManagerContext['register']>(ref => {
-    setRefs(r => [...r, ref]);
-
-    ref.dataset.fmcId = uid(`fmc-${namespace}`);
-  }, []);
-
-  const unregister = React.useCallback<NodeManagerContext['unregister']>(
-    ref => {
-      setRefs(r => r.filter(r => r !== ref));
+export const NodeManager: React.FC<NodeManagerProps> = ({ children }) => {
+  const [nodes, setNodes] = React.useState<HTMLElementMap>({});
+  const namespace = React.useRef(uid());
+  const register = React.useCallback<NodeManagerContext['register']>(
+    (key, node) => {
+      setNodes(n => ({ ...n, [key]: node }));
     },
     []
   );
 
-  React.useLayoutEffect(
-    () => {
-      const nodes = document.querySelectorAll<HTMLElement>(
-        `[data-fmc-id^="fmc-${namespace}"]`
-      )!;
-
-      setMatches(
-        [...((nodes as unknown) as HTMLElement[])]
-          .map(node => {
-            // map nodes back into refs to keep reference integrity.
-            const ref = refs.find(r => {
-              return node.isSameNode(r);
-            });
-            return ref;
-          })
-          .filter(r => !!r) // filter falsy nodes
-      );
+  const unregister = React.useCallback<NodeManagerContext['unregister']>(
+    key => {
+      setNodes(n => {
+        delete n[key];
+        return n;
+      });
     },
-    [refs, namespace]
+    []
   );
 
   const context = React.useMemo(
     () => {
       return {
-        matches,
+        namespace: namespace.current,
+        nodes,
         register,
         unregister,
       };
     },
-    [matches, register, unregister]
+    [nodes, register, unregister]
   );
 
   return <Context.Provider value={context}>{children}</Context.Provider>;
 };
 
-export function useRegisteredNodes() {
-  const { matches } = React.useContext(Context);
+// sort an array of DOM nodes according to the HTML tree order
+// http://www.w3.org/TR/html5/infrastructure.html#tree-order
+function sortNodes(nodes: HTMLElement[]) {
+  return nodes.sort(function(a: HTMLElement, b: HTMLElement) {
+    var posCompare = a.compareDocumentPosition(b);
+
+    if (posCompare & 4 || posCompare & 16) {
+      // a < b
+      return -1;
+    } else if (posCompare & 2 || posCompare & 8) {
+      // a > b
+      return 1;
+    } else if (posCompare & 1 || posCompare & 32) {
+      throw 'Cannot sort the given nodes.';
+    } else {
+      return 0;
+    }
+  });
+}
+
+// returns nodes in DOM order
+export function useOrderedNodes(sorter = sortNodes) {
+  const [matches, setMatches] = React.useState<HTMLElement[]>([]);
+  const { nodes, namespace } = React.useContext(Context);
+
+  React.useLayoutEffect(
+    () => {
+      const sorted = sorter(Object.keys(nodes).map(k => nodes[k]));
+      setMatches(sorted);
+    },
+    [nodes, namespace]
+  );
 
   return matches;
 }
 
-export function useRegisteredRef() {
+// returns a map of node IDs to nodes
+export function useNodes() {
+  const { nodes } = React.useContext(Context);
+  return nodes;
+}
+
+export function useRegisteredRef(key: string) {
   const ref = React.useRef<HTMLElement | undefined>(undefined);
 
   const { register, unregister } = React.useContext(Context);
-  const previousRef = usePrevious(ref.current);
 
   React.useEffect(
     () => {
       if (ref.current) {
-        register(ref.current);
+        register(key, ref.current);
       } else {
         // if ref.current is undefined, we want to unregister the ref
-        unregister(previousRef);
+        unregister(key);
       }
       // unregister on unmount
-      return () => unregister(previousRef);
+      return () => unregister(key);
     },
     [ref.current]
   );

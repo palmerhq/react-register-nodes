@@ -8,11 +8,16 @@ Sets up context.  Must be above any components that call the `use*` hooks.
 
 ## useRegisteredRef
 
-Returns a ref that will be registered with the nearest NodeManager.
+Returns a ref.  The node assigned to `ref.current` will be registered with the nearest NodeManager. Accepts an id to serve as the key to register the node under.
 
-## useRegisteredNodes
+## useOrderedNodes(sorter: (nodes: HTMLElement[]) => HTMLElement[])
 
-Returns all registered nodes in the order that they appear in the DOM.
+Returns all registered nodes in the order specified by . Uses [DOM order](https://gist.github.com/Justineo/ec7275cda82e986fc47b) by default.
+
+
+## useNodes
+
+Returns a map of 
 
 # Example
 
