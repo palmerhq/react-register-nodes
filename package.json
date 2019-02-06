@@ -1,0 +1,28 @@
+{
+  "name": "react-register-nodes",
+  "version": "0.1.0",
+  "main": "dist/index.js",
+  "umd:main": "dist/react-register-nodes.umd.production.js",
+  "module": "dist/react-register-nodes.es.production.js",
+  "typings": "dist/index.d.ts",
+  "files": [
+    "dist"
+  ],
+  "scripts": {
+    "start": "tsdx watch",
+    "build": "tsdx build",
+    "prepare": "npm run build",
+    "test": "tsdx test"
+  },
+  "devDependencies": {
+    "@types/jest": "^24.0.0",
+    "tsdx": "^0.3.3",
+    "typescript": "^3.3.1"
+  },
+  "dependencies": {
+    "@types/react": "^16.8.2",
+    "@types/react-dom": "^16.8.0",
+    "react": "^16.8.1",
+    "react-dom": "^16.8.1"
+  }
+}

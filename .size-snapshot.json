@@ -1,0 +1,36 @@
+{
+  "/Users/nathanforce/dev/react-register-nodes/dist/reactRegisterNodes.cjs.development.js": {
+    "bundled": 2832,
+    "minified": 1328,
+    "gzipped": 615
+  },
+  "/Users/nathanforce/dev/react-register-nodes/dist/reactRegisterNodes.cjs.production.js": {
+    "bundled": 2832,
+    "minified": 1328,
+    "gzipped": 615
+  },
+  "/Users/nathanforce/dev/react-register-nodes/dist/reactRegisterNodes.umd.development.js": {
+    "bundled": 3298,
+    "minified": 1289,
+    "gzipped": 662
+  },
+  "/Users/nathanforce/dev/react-register-nodes/dist/reactRegisterNodes.umd.production.js": {
+    "bundled": 3298,
+    "minified": 1289,
+    "gzipped": 662
+  },
+  "/Users/nathanforce/dev/react-register-nodes/dist/reactRegisterNodes.es.production.js": {
+    "bundled": 2754,
+    "minified": 1246,
+    "gzipped": 606,
+    "treeshaked": {
+      "rollup": {
+        "code": 99,
+        "import_statements": 38
+      },
+      "webpack": {
+        "code": 1087
+      }
+    }
+  }
+}
