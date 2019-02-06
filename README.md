@@ -3,7 +3,8 @@
 Register a set of refs within a context.  Helpful for UI where many siblings need to know about each other.  Shared example is scrolling to the first error in a form submission.
 
 ## API Reference
-### NodeManager
+
+### `<NodeManager/>`
 
 Sets up context.  Must be above any components that call the `use*` hooks.
 
