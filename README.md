@@ -18,7 +18,7 @@ Returns all registered nodes in the order specified by . Uses [DOM order](https:
 
 ### `useNodes`
 
-Returns a map of 
+Returns a map of ids to nodes
 
 # Example
 
