@@ -79,3 +79,7 @@ Returns an object of all registered nodes. Nodes are keyed by the key you passed
 
 Returns all registered nodes in the order specified by `sorter`. Uses [DOM order](https://gist.github.com/Justineo/ec7275cda82e986fc47b) by default.
 
+
+## Author
+
+- Nathan Force [@forcetheissue](https://twitter.com/forcetheissue)
