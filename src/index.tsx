@@ -99,6 +99,8 @@ export function useNodes() {
 }
 
 export function useRegisteredRef(key: string) {
+  const { register, unregister } = React.useContext(Context);
+
   const callback = React.useCallback(
     node => {
       if (node) {
@@ -109,8 +111,6 @@ export function useRegisteredRef(key: string) {
     },
     [key]
   );
-
-  const { register, unregister } = React.useContext(Context);
 
   return callback;
 }
