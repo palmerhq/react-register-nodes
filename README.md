@@ -8,24 +8,10 @@ Register a DOM nodes within a context.  Helpful for UI where many siblings need 
 yarn add react-register-nodes
 ```
 
-## API Reference
+## Examples
 
-### `<NodeManager/>`
-
-This is the Context Provider.  Must be above any components that call the `use*` hooks.
-
-### `useRegisteredRef(key: string): HTMLElement | undefined`
-
-Returns a `ref` to be passed to your DOM node.  The node assigned to `ref.current` will be registered with the nearest NodeManager. Accepts an id to serve as the key to register the node under. 
-
-### `useNodes(): { [key: string]: HTMLElement }`
-
-Returns an object of all registered nodes. Nodes are keyed by the key you passed to `useRegisteredRef`.
-
-### `useOrderedNodes(sorter: (nodes: HTMLElement[]) => HTMLElement[]): HTMLElement[]`
-
-Returns all registered nodes in the order specified by `sorter`. Uses [DOM order](https://gist.github.com/Justineo/ec7275cda82e986fc47b) by default.
-
+* Scroll to first error - https://codesandbox.io/s/10363x25oq
+* Deep nested node registration - https://codesandbox.io/s/lxrno4nk9
 
 ## Usage
 
@@ -74,7 +60,22 @@ render(
 );
 ```
 
-## Examples
 
-* Scroll to first error - https://codesandbox.io/s/10363x25oq
-* Deep nested node registration - https://codesandbox.io/s/lxrno4nk9
+## API Reference
+
+### `<NodeManager/>`
+
+This is the Context Provider.  Must be above any components that call the `use*` hooks.
+
+### `useRegisteredRef(key: string): HTMLElement | undefined`
+
+Returns a `ref` to be passed to your DOM node.  The node assigned to `ref.current` will be registered with the nearest NodeManager. Accepts an id to serve as the key to register the node under. 
+
+### `useNodes(): { [key: string]: HTMLElement }`
+
+Returns an object of all registered nodes. Nodes are keyed by the key you passed to `useRegisteredRef`.
+
+### `useOrderedNodes(sorter: (nodes: HTMLElement[]) => HTMLElement[]): HTMLElement[]`
+
+Returns all registered nodes in the order specified by `sorter`. Uses [DOM order](https://gist.github.com/Justineo/ec7275cda82e986fc47b) by default.
+
