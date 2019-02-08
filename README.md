@@ -2,6 +2,12 @@
 
 Register a DOM nodes within a context.  Helpful for UI where many siblings need to know about each other. A common example is scrolling to the first error after a form submission.
 
+## Installation
+
+```
+yarn add react-register-nodes
+```
+
 ## API Reference
 
 ### `<NodeManager/>`
