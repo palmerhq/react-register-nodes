@@ -2,6 +2,7 @@
   "name": "react-register-nodes",
   "version": "0.4.1",
   "main": "dist/index.js",
+  "license": "MIT",
   "umd:main": "dist/react-register-nodes.umd.production.js",
   "module": "dist/react-register-nodes.es.production.js",
   "typings": "dist/index.d.ts",
