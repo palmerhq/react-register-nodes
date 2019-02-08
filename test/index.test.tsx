@@ -1,5 +1,5 @@
 import React from 'react';
-import { render, cleanup } from 'react-testing-library';
+import { render, cleanup, fireEvent } from 'react-testing-library';
 
 import {
   NodeManager,
@@ -89,4 +89,67 @@ test('useOrderedNodes accepts a custom sorter', () => {
   );
 
   expect(getByTestId('results').textContent).toEqual('node-a,node-b,node-c');
+});
+
+test('deep nested nodes', () => {
+  const Parent: React.FC = ({ children }) => <div>{children}</div>;
+
+  const DeepConditional: React.FC = () => {
+    const ref = useRegisteredRef('conditional');
+    const [count, setCount] = React.useState(0);
+
+    return (
+      <div style={{ marginTop: '1rem' }}>
+        {count % 2 === 0 && (
+          <div ref={ref as any}>
+            Deep node. Only rendered when count is even! Does not trigger a
+            rerender of the parent. When this is toggled off, the 'conditional'
+            node should not be registered.
+          </div>
+        )}
+        <button
+          data-even={count % 2 === 0}
+          className="pure-button pure-button-primary"
+          onClick={() => setCount(c => c + 1)}
+        >
+          Toggle
+        </button>
+      </div>
+    );
+  };
+
+  const Example = () => {
+    const nodes = useNodes();
+    const ref = useRegisteredRef('shallow');
+
+    return (
+      <React.Fragment>
+        <div ref={ref as any}>Shallow node, always rendered</div>
+        <Parent>
+          <DeepConditional />
+        </Parent>
+        <div>
+          Registered Nodes:
+          <pre data-testid="nodes">
+            {JSON.stringify(Object.keys(nodes), null, 2)}
+          </pre>
+        </div>
+      </React.Fragment>
+    );
+  };
+
+  const { getByTestId, getByText } = render(
+    <NodeManager>
+      <Example />
+    </NodeManager>
+  );
+
+  expect(JSON.parse(getByTestId('nodes').textContent!)).toEqual([
+    'shallow',
+    'conditional',
+  ]);
+
+  fireEvent.click(getByText('Toggle'));
+
+  expect(JSON.parse(getByTestId('nodes').textContent!)).toEqual(['shallow']);
 });

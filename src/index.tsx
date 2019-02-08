@@ -28,6 +28,7 @@ export interface NodeManagerProps {
 export const NodeManager: React.FC<NodeManagerProps> = ({ children }) => {
   const [nodes, setNodes] = React.useState<HTMLElementMap>({});
   const namespace = React.useRef(uid());
+
   const register = React.useCallback<NodeManagerContext['register']>(
     (key, node) => {
       setNodes(n => ({ ...n, [key]: node }));
@@ -46,17 +47,14 @@ export const NodeManager: React.FC<NodeManagerProps> = ({ children }) => {
     []
   );
 
-  const context = React.useMemo(
-    () => {
-      return {
-        namespace: namespace.current,
-        nodes,
-        register,
-        unregister,
-      };
-    },
-    [nodes, register, unregister, namespace]
-  );
+  const context = React.useMemo(() => {
+    return {
+      namespace: namespace.current,
+      nodes,
+      register,
+      unregister,
+    };
+  }, [nodes, register, unregister, namespace]);
 
   return <Context.Provider value={context}>{children}</Context.Provider>;
 };
@@ -86,13 +84,10 @@ export function useOrderedNodes(sorter = sortNodes) {
   const [matches, setMatches] = React.useState<HTMLElement[]>([]);
   const { nodes, namespace } = React.useContext(Context);
 
-  React.useLayoutEffect(
-    () => {
-      const sorted = sorter(Object.keys(nodes).map(k => nodes[k]));
-      setMatches(sorted);
-    },
-    [nodes, namespace]
-  );
+  React.useLayoutEffect(() => {
+    const sorted = sorter(Object.keys(nodes).map(k => nodes[k]));
+    setMatches(sorted);
+  }, [nodes, namespace]);
 
   return matches;
 }
@@ -104,23 +99,18 @@ export function useNodes() {
 }
 
 export function useRegisteredRef(key: string) {
-  const ref = React.useRef<HTMLElement | undefined>(undefined);
+  const callback = React.useCallback(
+    node => {
+      if (node) {
+        register(key, node);
+      } else {
+        unregister(key);
+      }
+    },
+    [key]
+  );
 
   const { register, unregister } = React.useContext(Context);
 
-  React.useEffect(
-    () => {
-      if (ref.current) {
-        register(key, ref.current);
-      } else {
-        // if ref.current is undefined, we want to unregister the ref
-        unregister(key);
-      }
-      // unregister on unmount
-      return () => unregister(key);
-    },
-    [ref.current, key]
-  );
-
-  return ref;
+  return callback;
 }
