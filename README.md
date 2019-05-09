@@ -1,6 +1,6 @@
 # react-register-nodes
 
-Register a DOM nodes within a context.  Helpful for UI where many siblings need to know about each other. A common example is scrolling to the first error after a form submission.
+Register DOM nodes within a context.  Helpful for UI where many siblings need to know about each other. A common example is scrolling to the first error after a form submission.
 
 ## Installation
 
