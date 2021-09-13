@@ -64,7 +64,7 @@ test('useOrderedNodes accepts a custom sorter', () => {
       return n.sort((a, b) => {
         if (a.dataset.testId![5] > b.dataset.testId![5]) {
           return 1;
-        } else if (a.dataset.testId![5] > b.dataset.testId![5]) {
+        } else if (a.dataset.testId![5] < b.dataset.testId![5]) {
           return -1;
         } else {
           return 0;
